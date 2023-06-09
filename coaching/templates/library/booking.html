@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title%} Booking{% endblock %}
+
+{% block css %}
+<style>
+</style>
+{% endblock css %}
+{% block body %}
+
+{% comment %} anitkumar75 {% endcomment %}
+
+<div class="container  my-2">
+    <h1>Book Your Seat Here</h1>
+    {% if already_booked %}
+    <p>You have already booked a seat.</p>
+    {% else %}
+
+
+    <form method="post" action="/library/book/">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="seat_number">Select Your Seat: </label>
+            <select name="seat_number" class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                {% for seat in seats %}
+                {% if not seat.is_booked %}
+                <option value="{{ seat.seat_number }}">Seat No. {{ seat.seat_number}}</option>
+                
+              {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Enter your Username</label>
+            <input type="text" class="form-control" name="username" id="username" required placeholder="Username.">
+        </div> 
+        <div class="mb-3">
+            <label for="name" class="form-label">Enter Your Name</label>
+            <input type="text" class="form-control" name="name" id="name" required placeholder="Name.">
+        </div>
+
+        <div class="mb-3">
+            <select name="gender" class="form-select" aria-label="Default select example" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
+
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title%} Library{% endblock %}
+
+{% block css %}
+<style>
+  .centre {
+    text-align: center;
+  }
+
+  .first-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+  }
+
+  .main-img1,
+  .main-img2 {
+    background: url('https://source.unsplash.com/1200x500/?study,student') no-repeat center;
+
+  }
+
+  .main-study {
+    text-align: center;
+
+  }
+</style>
+{% endblock css %}
+{% block body %}
+
+
+
+
+<div class="container-fluid">
+
+
+  <div class="p-5 mb-4 bg-body-tertiary m-0 rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Welcome to Library</h1>
+      <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous
+        versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+      <p>Mob. :<Strong>9720000106</Strong> , <strong>9027350738</strong></p>
+      <button class="btn btn-primary btn-lg" type="button">Join Library</button>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid  my-3 ">
+  <h2 class=" centre">Our Serviceses</h2>
+</div>
+
+
+<div class="container">
+
+ <div class="container text-center">
+  <h2 class=" centre">Available Seats</h2>
+
+  <div class="row">
+    {% for seat in tseats %}
+
+    {% if not seat.is_booked %}
+    <div class="card col p-2 m-2 bg-success" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Seat No. {{seat}}</h5>
+        <a href="/library/book/" class="btn btn-danger  btn-sm">Book</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="card col p-2 m-2 bg-warning" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Seat No. {{seat}}</h5>
+        <h6>Name-: {{seat.name}} </h6>
+        <p>Gender-:{{seat.gender}} </p>
+        <a href="/library/cencelseat/{{seat}}" class="btn btn-danger  btn-sm">Cencel</a>
+      </div>
+    </div>
+
+    {% endif %}
+
+    {% if forloop.counter|divisibleby:5 and forloop.counter > 0 and not forloop.last %}
+  </div>
+  <div class="row">
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+</div> 
+
+
+</div>
+{% endblock %}
